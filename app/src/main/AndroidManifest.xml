@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainCategoryActivity" />
+        <activity android:name=".SingleCategoryActivity" />
+        <activity android:name=".SingleObjectActivity"></activity>
     </application>
 
 </manifest>
