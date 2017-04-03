@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
  */
 
 public class CustomeAdapter extends BaseAdapter {
+
     @Override
     public int getCount() {
         return 0;
