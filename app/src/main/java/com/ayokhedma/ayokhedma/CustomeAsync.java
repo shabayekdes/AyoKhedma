@@ -1,5 +1,6 @@
 package com.ayokhedma.ayokhedma;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -12,10 +13,10 @@ import java.net.HttpURLConnection;
 
 public class CustomeAsync extends AsyncTask<String,String,String> {
 
-    private final Context context;
+    private final TaskListener taskListener;
 
-    public CustomeAsync(Context context){
-        this.context = context;
+    public CustomeAsync(Activity activity){
+        taskListener = (TaskListener) activity;
     }
 
     @Override
@@ -27,11 +28,12 @@ public class CustomeAsync extends AsyncTask<String,String,String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return s;
+        return "how are you friend";
     }
 
     @Override
     protected void onPostExecute(String s) {
+        taskListener.onTaskFinsh(s);
         super.onPostExecute(s);
     }
 }
