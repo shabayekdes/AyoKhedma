@@ -5,8 +5,8 @@ package com.ayokhedma.ayokhedma.models;
  */
 
 public class CategoryModel {
-    private String name;
-    private int img;
+    public String name;
+    public int img;
 
     public CategoryModel(String name, int img) {
         this.name = name;

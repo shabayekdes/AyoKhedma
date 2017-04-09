@@ -37,7 +37,7 @@ public class MainCategoryActivity extends AppCompatActivity {
         myarray.add(new CategoryModel("Pharmacy",R.drawable.pharmacy));
 
         CustomeAdapter adapter = new CustomeAdapter(this,myarray);
-
+        grid.setAdapter(adapter);
     }
 
     @Override

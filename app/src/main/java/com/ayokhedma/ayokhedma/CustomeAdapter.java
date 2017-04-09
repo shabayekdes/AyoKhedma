@@ -45,6 +45,9 @@ public class CustomeAdapter extends BaseAdapter {
         TextView txtgrid = (TextView) view.findViewById(R.id.txt_grid);
         ImageView imggrid = (ImageView) view.findViewById(R.id.img_grid);
 
+        CategoryModel temp = modelArrayList.get(i);
+        txtgrid.setText(temp.name);
+        imggrid.setImageResource(temp.img);
 
         return view;
     }
