@@ -28,7 +28,7 @@ public class CustomeAsync extends AsyncTask<String,String,String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "how are you friend";
+        return s;
     }
 
     @Override
