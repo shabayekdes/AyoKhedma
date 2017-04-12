@@ -9,7 +9,7 @@
         android:id="@+id/img_grid"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        app:srcCompat="@drawable/hotels"
+        app:srcCompat="@drawable/bank"
         android:layout_marginLeft="16dp"
 
         />
@@ -20,6 +20,6 @@
         android:layout_gravity="center"
         android:id="@+id/txt_grid"
         android:textSize="15sp"
-        android:text="hotels"/>
+        android:text="bank"/>
 
 </LinearLayout>

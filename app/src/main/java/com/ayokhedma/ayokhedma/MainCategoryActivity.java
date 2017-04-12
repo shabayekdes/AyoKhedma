@@ -22,7 +22,7 @@ public class MainCategoryActivity extends AppCompatActivity {
 
         GridView grid = (GridView) findViewById(R.id.grid);
 
-        ArrayList<CategoryModel> myarray = new ArrayList<CategoryModel>();
+       /* ArrayList<CategoryModel> myarray = new ArrayList<CategoryModel>();
         myarray.add(new CategoryModel("Hotels",R.drawable.hotels));
         myarray.add(new CategoryModel("Market",R.drawable.market));
         myarray.add(new CategoryModel("Education",R.drawable.education));
@@ -37,7 +37,7 @@ public class MainCategoryActivity extends AppCompatActivity {
         myarray.add(new CategoryModel("Pharmacy",R.drawable.pharmacy));
 
         CustomeAdapter adapter = new CustomeAdapter(this,myarray);
-        grid.setAdapter(adapter);
+        grid.setAdapter(adapter);*/
     }
 
     @Override

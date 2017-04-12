@@ -17,21 +17,24 @@ import java.util.ArrayList;
  */
 
 public class CustomeAdapter extends BaseAdapter {
-    private ArrayList<CategoryModel> modelArrayList ;
-    private LayoutInflater layoutInflater;
-    public CustomeAdapter(Context context, ArrayList<CategoryModel> modelArrayList){
-        this.layoutInflater = LayoutInflater.from(context);
-        this.modelArrayList = modelArrayList;
+    Context context;
+    LayoutInflater inflater;
+    ArrayList<CategoryModel> modelloginlist = new ArrayList<>();
+
+    public CustomeAdapter(Context context,ArrayList<CategoryModel> modelloginlist) {
+        this.modelloginlist = modelloginlist;
+        this.context = context;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return modelArrayList.size();
+        return modelloginlist.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return modelArrayList.get(i);
+        return modelloginlist.get(i);
     }
 
     @Override
@@ -41,13 +44,11 @@ public class CustomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = layoutInflater.inflate(R.layout.listview,null);
-        TextView txtgrid = (TextView) view.findViewById(R.id.txt_grid);
-        ImageView imggrid = (ImageView) view.findViewById(R.id.img_grid);
-
-        CategoryModel temp = modelArrayList.get(i);
-        txtgrid.setText(temp.name);
-        imggrid.setImageResource(temp.img);
+        view = inflater.inflate(R.layout.listview,null);
+        TextView txtname = (TextView) view.findViewById(R.id.txt_grid);
+        ImageView imgv = (ImageView) view.findViewById(R.id.img_grid);
+        txtname.setText(modelloginlist.get(i).getName());
+        imgv.setImageResource(modelloginlist.get(i).getImg());
 
         return view;
     }
