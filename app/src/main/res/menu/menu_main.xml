@@ -13,19 +13,21 @@
         app:showAsAction="always"/>
     -->
     <item
-        android:id="@+id/app_bar_search"
+        android:id="@+id/search_item"
         android:actionViewClass="android.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="101"
         android:title="Search"
-        app:showAsAction="always"/>
-    <item android:title="@string/contact"
-        android:id="@+id/contact"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/contact_item"
         android:orderInCategory="102"
-        app:showAsAction="never"/>
-    <item android:title="@string/about"
-        android:id="@+id/about"
+        android:title="@string/contact"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/about_item"
         android:orderInCategory="103"
-        app:showAsAction="never"/>
+        android:title="@string/about"
+        app:showAsAction="never" />
 
 </menu>

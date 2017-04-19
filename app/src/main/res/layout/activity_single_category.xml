@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.ayokhedma.ayokhedma.SingleCategoryActivity">
 
+    <ListView
+        android:id="@+id/list_cat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.constraint.ConstraintLayout>
