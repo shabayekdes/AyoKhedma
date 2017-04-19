@@ -5,6 +5,7 @@ package com.ayokhedma.ayokhedma.models;
  */
 
 public class CategoryModel {
+    public String id;
     public String name;
     public int img;
 
@@ -18,6 +19,14 @@ public class CategoryModel {
 
     public int getImg() {
         return img;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setImg(int img) {

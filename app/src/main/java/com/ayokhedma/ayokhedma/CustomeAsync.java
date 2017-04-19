@@ -33,40 +33,35 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
     @Override
     protected ArrayList<CategoryModel> doInBackground(String... strings) {
         publishProgress("Open connection");
+        String link = strings[0];
         String res = "";
         try {
-            URL url = new URL(strings[0]);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream inputStream = urlConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuffer stringBuffer = new StringBuffer();
-            String line = "";
-            while ((line=bufferedReader.readLine())!= null){
-                stringBuffer.append(line+"\n");
-            }
-            res = stringBuffer.toString();
+            ConnectionManger connectionManger = new ConnectionManger();
+            HttpURLConnection urlConnection = connectionManger.openConnect(link);
+            res = connectionManger.getResult(urlConnection);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         publishProgress("Read Json file");
-        ArrayList<CategoryModel> modelloginlist = new ArrayList<>();
+        ArrayList<CategoryModel> categoryModels = new ArrayList<>();
         JSONArray jarray = null;
         try {
             jarray = new JSONArray(res);
             for (int i = 0; i <jarray.length() ; i++) {
                 JSONObject object = jarray.getJSONObject(i);
                 CategoryModel model = new CategoryModel();
+                model.setId(object.getString("id"));
                 model.setName(object.getString("cat_name"));
                 model.setImg(R.drawable.img1+i);
-                modelloginlist.add(model);
+                categoryModels.add(model);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         publishProgress("Finish and retrun values");
-        return modelloginlist;
+        return categoryModels;
     }
 
     @Override
@@ -76,9 +71,9 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
     }
 
     @Override
-    protected void onPostExecute(ArrayList<CategoryModel> modelLogins) {
-        super.onPostExecute(modelLogins);
-        taskListener.onTaskFinsh(modelLogins);
+    protected void onPostExecute(ArrayList<CategoryModel> categoryModels) {
+        super.onPostExecute(categoryModels);
+        taskListener.onTaskFinsh(categoryModels);
 
     }
 }
