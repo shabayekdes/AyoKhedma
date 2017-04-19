@@ -12,9 +12,9 @@ public class SingleCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_category);
-        TextView txtshow = (TextView) findViewById(R.id.txtshow);
-        Intent intent = getIntent();
-        txtshow.setText(intent.getStringExtra("id")+ " " +intent.getStringExtra("name"));
+      //  TextView txtshow = (TextView) findViewById(R.id.txtshow);
+      //  Intent intent = getIntent();
+     //   txtshow.setText(intent.getStringExtra("id")+ " " +intent.getStringExtra("name"));
 
     }
     @Override

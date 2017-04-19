@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/img_grid"
+        android:id="@+id/category_img"
         android:layout_width="80dp"
         android:layout_height="60dp"
         app:srcCompat="@drawable/bank"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center"
-        android:id="@+id/txt_grid"
+        android:id="@+id/category_name"
         android:textSize="15sp"
         android:text="bank"/>
 

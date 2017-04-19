@@ -52,9 +52,9 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
             for (int i = 0; i <jarray.length() ; i++) {
                 JSONObject object = jarray.getJSONObject(i);
                 CategoryModel model = new CategoryModel();
-                model.setId(object.getString("id"));
-                model.setName(object.getString("cat_name"));
-                model.setImg(R.drawable.img1+i);
+                model.setCategoryId(object.getString("id"));
+                model.setCategoryName(object.getString("cat_name"));
+                model.setCategoryImg(R.drawable.img1+i);
                 categoryModels.add(model);
             }
         } catch (JSONException e) {
@@ -71,9 +71,9 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
     }
 
     @Override
-    protected void onPostExecute(ArrayList<CategoryModel> categoryModels) {
-        super.onPostExecute(categoryModels);
-        taskListener.onTaskFinsh(categoryModels);
+    protected void onPostExecute(ArrayList<CategoryModel> models) {
+        super.onPostExecute(models);
+        taskListener.onTaskFinsh(models);
 
     }
 }

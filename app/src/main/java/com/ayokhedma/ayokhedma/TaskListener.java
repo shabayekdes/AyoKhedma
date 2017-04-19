@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface TaskListener {
-    public void onTaskFinsh(ArrayList<CategoryModel> modelLogins);
+    public void onTaskFinsh(ArrayList<CategoryModel> models);
 }
