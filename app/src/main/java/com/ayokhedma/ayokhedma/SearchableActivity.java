@@ -8,15 +8,21 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.ayokhedma.ayokhedma.models.CategoryModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class SearchableActivity extends AppCompatActivity {
+public class SearchableActivity extends AppCompatActivity implements TaskListener{
     SearchView searchView;
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
-       /* handleIntent(getIntent());
+       listView = (ListView) findViewById(R.id.search_list);
+        /* handleIntent(getIntent());
+
         SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -39,6 +45,12 @@ public class SearchableActivity extends AppCompatActivity {
             new CustomeAsync(this).execute();
         }
 
+    }
+
+    @Override
+    public void onTaskFinsh(ArrayList<CategoryModel> models) {
+        CustomeAdapter myadapter = new CustomeAdapter(this,R.layout.list_item,models);
+        listView.setAdapter(myadapter);
     }
 
 }
