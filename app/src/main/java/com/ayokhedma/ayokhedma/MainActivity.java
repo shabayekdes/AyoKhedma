@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements TaskListener{
     GridView grid;
     SearchView searchView;
+    ShareActionProvider shareActionProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,16 +52,30 @@ public class MainActivity extends AppCompatActivity implements TaskListener{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
+        // Search Action
        MenuItem searchItem = menu.findItem(R.id.search_item);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        if (searchItem != null) {
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setIconified(true);
-        }
+        // Share Action
+        MenuItem shareItem = menu.findItem(R.id.share_item);
+            shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+            setShareActionIntent(createShareIntent());
+
         return true;
+    }
+    private void setShareActionIntent(Intent shareIntent){
+        if (shareActionProvider != null){
+            shareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+    private Intent createShareIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                "http://ayokhedma.com");
+        return shareIntent;
     }
 
     @Override

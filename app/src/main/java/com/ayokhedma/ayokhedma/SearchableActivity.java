@@ -42,7 +42,7 @@ public class SearchableActivity extends AppCompatActivity implements TaskListene
             if (searchView != null) {
                 searchView.clearFocus();
             }
-            new CustomeAsync(this).execute();
+            new CustomeAsync(this).execute("http://oriflamebeauty.net/ayokhedma/category.php?catid=" + 1);
         }
 
     }

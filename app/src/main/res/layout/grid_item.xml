@@ -20,6 +20,7 @@
         android:layout_gravity="center"
         android:id="@+id/category_name"
         android:textSize="15sp"
-        android:text="bank"/>
+        android:text="bank"
+        android:textColor="#0033ff"/>
 
 </LinearLayout>
