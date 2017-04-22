@@ -35,16 +35,9 @@ public class MainActivity extends AppCompatActivity implements TaskListener{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         grid = (GridView) findViewById(R.id.grid);
-        new CustomeAsync(this).execute("http://oriflamebeauty.net/ayokhedma/category.php?limit=6");
+        new CustomeAsync(this).execute("category");
 
-       /* ArrayList<CategoryModel> myarray = new ArrayList<CategoryModel>();
-        myarray.add(new CategoryModel("Hotels",R.drawable.hotels));
-        myarray.add(new CategoryModel("Market",R.drawable.market));
-        myarray.add(new CategoryModel("Education",R.drawable.education));
-        myarray.add(new CategoryModel("Caffe",R.drawable.cafee));
-        myarray.add(new CategoryModel("Resturant",R.drawable.resturant));
-        myarray.add(new CategoryModel("Work",R.drawable.work));
-*/
+
 
 
     }

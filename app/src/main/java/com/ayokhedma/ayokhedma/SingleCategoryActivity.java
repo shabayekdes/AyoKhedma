@@ -28,9 +28,6 @@ ListView listv;
         Intent intent = getIntent();
         String catid =  intent.getStringExtra("id").toString();
         new CustomeAsync(this).execute("http://oriflamebeauty.net/ayokhedma/category.php?catid=" + catid);
-        //  TextView txtshow = (TextView) findViewById(R.id.txtshow);
-      //  Intent intent = getIntent();
-     //   txtshow.setText(intent.getStringExtra("id")+ " " +intent.getStringExtra("name"));
 
     }
     @Override

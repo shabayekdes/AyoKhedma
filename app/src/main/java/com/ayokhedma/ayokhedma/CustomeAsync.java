@@ -19,12 +19,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import static com.ayokhedma.ayokhedma.ConnectionManger.buReader;
+import static com.ayokhedma.ayokhedma.ConnectionManger.openConnect;
+
 /**
  * Created by SevenTG on 02/04/2017.
  */
 
 public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryModel>> {
-
+    String res = null;
     private final TaskListener taskListener;
 
     public CustomeAsync(Activity activity){
@@ -32,19 +37,60 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
     }
     @Override
     protected ArrayList<CategoryModel> doInBackground(String... strings) {
-        publishProgress("Open connection");
-        String link = strings[0];
-        String res = "";
+
+        String type = strings[0];
+        String id = strings[1];
+        String data = null;
+        String link = null;
+
+       if (type.equals("category")) {
+            link = "https://www.oriflamebeauty.net/ayokhedma/category.php?limit=6";
+            try {
+                HttpsURLConnection urlConnection = openConnect(link, "GET");
+                res = buReader(urlConnection);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        ArrayList<CategoryModel> categoryModels = categoryArray();
+        return categoryModels;
+       }else if (type.equals("listCategory")){
+           link = "https://www.oriflamebeauty.net/ayokhedma/category.php?catid=" + id;
+           try {
+               HttpsURLConnection urlConnection = openConnect(link, "GET");
+               res = buReader(urlConnection);
+           } catch (MalformedURLException e) {
+               e.printStackTrace();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+           ArrayList<CategoryModel> categoryModels = listCategoryArray();
+           return categoryModels;
+       }else if (type.equals("search")){
+        link = "https://www.oriflamebeauty.net/ayokhedma/search.php?search=" + id;
         try {
-            ConnectionManger connectionManger = new ConnectionManger();
-            HttpURLConnection urlConnection = connectionManger.openConnect(link);
-            res = connectionManger.getResult(urlConnection);
+            HttpsURLConnection urlConnection = openConnect(link, "GET");
+            res = buReader(urlConnection);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        publishProgress("Read Json file");
+        ArrayList<CategoryModel> categoryModels = listCategoryArray();
+        return categoryModels;
+    }
+        return null;
+    }
+
+
+    @Override
+    protected void onPostExecute(ArrayList<CategoryModel> models) {
+        super.onPostExecute(models);
+        taskListener.onTaskFinsh(models);
+
+    }
+    public ArrayList<CategoryModel> categoryArray(){
         ArrayList<CategoryModel> categoryModels = new ArrayList<>();
         JSONArray jarray = null;
         try {
@@ -60,20 +106,28 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        publishProgress("Finish and retrun values");
         return categoryModels;
     }
-
-    @Override
-    protected void onProgressUpdate(String... values) {
-        super.onProgressUpdate(values);
-        // Toast.makeText(, values[0], Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onPostExecute(ArrayList<CategoryModel> models) {
-        super.onPostExecute(models);
-        taskListener.onTaskFinsh(models);
-
+    public ArrayList<CategoryModel> listCategoryArray(){
+        ArrayList<CategoryModel> categoryModels = new ArrayList<>();
+        JSONArray jarray = null;
+        try {
+            jarray = new JSONArray(res);
+            for (int i = 0; i <jarray.length() ; i++) {
+                JSONObject object = jarray.getJSONObject(i);
+                CategoryModel model = new CategoryModel();
+                model.setObjectName(object.getString("obj_name"));
+                model.setRegion(object.getString("reg_name"));
+                model.setStreetName(object.getString("str_name"));
+                model.setBeSides(object.getString("street_side"));
+              //  model.setObjectImg(object.getString("obj_imgurl"));
+                model.setCategoryName(object.getString("cat_name"));
+                model.setCategoryImg(R.drawable.img1+i);
+                categoryModels.add(model);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return categoryModels;
     }
 }
