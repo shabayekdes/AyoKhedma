@@ -21,8 +21,16 @@ public class SearchableActivity extends AppCompatActivity implements TaskListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
        listView = (ListView) findViewById(R.id.search_list);
-        /* handleIntent(getIntent());
-
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            if (searchView != null) {
+                searchView.clearFocus();
+            }
+            new CustomeAsync(this).execute("search" ,query);
+        }
+        // handleIntent(getIntent());
+/*
         SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -32,23 +40,24 @@ public class SearchableActivity extends AppCompatActivity implements TaskListene
 
 
 
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
+   // protected void onNewIntent(Intent intent) {
+    //    handleIntent(intent);
+  //  }
 
-    private void handleIntent(Intent intent) {
+  /*  private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             if (searchView != null) {
                 searchView.clearFocus();
             }
-            new CustomeAsync(this).execute("http://oriflamebeauty.net/ayokhedma/category.php?catid=" + 1);
+           new CustomeAsync(this).execute("search" ,query);
         }
 
-    }
+    }*/
 
     @Override
     public void onTaskFinsh(ArrayList<CategoryModel> models) {
+
         CustomeAdapter myadapter = new CustomeAdapter(this,R.layout.list_item,models);
         listView.setAdapter(myadapter);
     }

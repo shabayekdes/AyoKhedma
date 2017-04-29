@@ -6,14 +6,15 @@
     android:orientation="horizontal">
     <ImageView
         android:id="@+id/object_image"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_weight="1"
         android:src="@drawable/bank" />
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_weight="3"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
         <TextView
@@ -23,7 +24,7 @@
             android:layout_weight="1"
             android:text="صيدلية الرحمة"
             android:textColor="@android:color/black"
-            android:textSize="40sp"
+            android:textSize="20dp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/object_region"
@@ -42,12 +43,12 @@
             android:text="شارع الجيش بجوار مستشفى العريش العام"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
-        <RatingBar
+       <!-- <RatingBar
             android:id="@+id/object_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:numStars="5"
-            android:rating="3" />
+            android:rating="3" />-->
     </LinearLayout>
 </LinearLayout>

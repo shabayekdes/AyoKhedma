@@ -19,7 +19,7 @@ public class MainCategoryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_black_24dp);
+       // getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_black_24dp);
 
         GridView grid = (GridView) findViewById(R.id.grid);
 

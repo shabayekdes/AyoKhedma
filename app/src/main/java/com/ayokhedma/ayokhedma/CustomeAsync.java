@@ -2,7 +2,9 @@ package com.ayokhedma.ayokhedma;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.ayokhedma.ayokhedma.models.CategoryModel;
 
@@ -11,9 +13,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.DatagramSocket;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,6 +28,7 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 import static com.ayokhedma.ayokhedma.ConnectionManger.buReader;
+import static com.ayokhedma.ayokhedma.ConnectionManger.buWriter;
 import static com.ayokhedma.ayokhedma.ConnectionManger.openConnect;
 
 /**
@@ -29,68 +36,69 @@ import static com.ayokhedma.ayokhedma.ConnectionManger.openConnect;
  */
 
 public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryModel>> {
-    String res = null;
     private final TaskListener taskListener;
+
 
     public CustomeAsync(Activity activity){
         taskListener = (TaskListener) activity;
     }
     @Override
     protected ArrayList<CategoryModel> doInBackground(String... strings) {
-
+        ArrayList<CategoryModel> categoryModels = null;
         String type = strings[0];
-        String id = strings[1];
-        String data = null;
         String link = null;
-
-       if (type.equals("category")) {
+        String res = null;
+        HttpsURLConnection connection = null;
+   if (type.equals("category")) {
             link = "https://www.oriflamebeauty.net/ayokhedma/category.php?limit=6";
             try {
-                HttpsURLConnection urlConnection = openConnect(link, "GET");
-                res = buReader(urlConnection);
+                connection = openConnect(link, "GET");
+                res = buReader(connection);
+                categoryModels = categoryArray(res);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        ArrayList<CategoryModel> categoryModels = categoryArray();
-        return categoryModels;
-       }else if (type.equals("listCategory")){
+      }else if (type.equals("listCategory")){
+           String id = strings[1];
            link = "https://www.oriflamebeauty.net/ayokhedma/category.php?catid=" + id;
            try {
-               HttpsURLConnection urlConnection = openConnect(link, "GET");
-               res = buReader(urlConnection);
-           } catch (MalformedURLException e) {
-               e.printStackTrace();
+               connection = openConnect(link, "GET");
+               res = buReader(connection);
+               categoryModels = listCategoryArray(res);
            } catch (IOException e) {
                e.printStackTrace();
+           } finally {
+               connection.disconnect();
            }
-           ArrayList<CategoryModel> categoryModels = listCategoryArray();
-           return categoryModels;
-       }else if (type.equals("search")){
-        link = "https://www.oriflamebeauty.net/ayokhedma/search.php?search=" + id;
-        try {
-            HttpsURLConnection urlConnection = openConnect(link, "GET");
-            res = buReader(urlConnection);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ArrayList<CategoryModel> categoryModels = listCategoryArray();
+       }else if (type.equals("search")) {
+           String searchQuery = strings[1];
+           link = "https://www.oriflamebeauty.net/ayokhedma/search.php";
+           try {
+               connection = openConnect(link, "POST");
+               buWriter(connection,"searchQuery", searchQuery);
+           } catch (IOException e1) {
+               e1.printStackTrace();
+           }
+           try {
+                res = buReader(connection);
+                categoryModels = listCategoryArray(res);
+           } catch (IOException e) {
+               e.printStackTrace();
+           } finally {
+               connection.disconnect();
+           }
+      }
         return categoryModels;
     }
-        return null;
-    }
-
-
     @Override
     protected void onPostExecute(ArrayList<CategoryModel> models) {
         super.onPostExecute(models);
         taskListener.onTaskFinsh(models);
-
     }
-    public ArrayList<CategoryModel> categoryArray(){
+
+    public ArrayList<CategoryModel> categoryArray(String res){
         ArrayList<CategoryModel> categoryModels = new ArrayList<>();
         JSONArray jarray = null;
         try {
@@ -108,11 +116,12 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
         }
         return categoryModels;
     }
-    public ArrayList<CategoryModel> listCategoryArray(){
+
+    public ArrayList<CategoryModel> listCategoryArray(String res){
         ArrayList<CategoryModel> categoryModels = new ArrayList<>();
         JSONArray jarray = null;
         try {
-            jarray = new JSONArray(res);
+           jarray = new JSONArray(res);
             for (int i = 0; i <jarray.length() ; i++) {
                 JSONObject object = jarray.getJSONObject(i);
                 CategoryModel model = new CategoryModel();
@@ -130,4 +139,5 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
         }
         return categoryModels;
     }
+
 }

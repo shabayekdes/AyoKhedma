@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity implements TaskListener{
         grid = (GridView) findViewById(R.id.grid);
         new CustomeAsync(this).execute("category");
 
-
-
-
     }
 
     @Override

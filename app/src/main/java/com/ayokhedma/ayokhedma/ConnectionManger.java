@@ -3,6 +3,7 @@ package com.ayokhedma.ayokhedma;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -52,6 +53,8 @@ public class ConnectionManger {
             urlConnection.setReadTimeout(3000);
             urlConnection.setConnectTimeout(3000);
             urlConnection.setRequestMethod(method);
+            // setDoInput and setDoOutput to true as we send and recieve data
+            urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
             urlConnection.connect();
             int responseCode = urlConnection.getResponseCode();
@@ -63,7 +66,7 @@ public class ConnectionManger {
 
         return urlConnection;
     }
-    public static String buReader (HttpsURLConnection urlConnection) throws IOException {
+    public static String buReader (HttpURLConnection urlConnection) throws IOException {
         InputStream inputStream = urlConnection.getInputStream();
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream,"UTF-8"));
         StringBuffer buffer = new StringBuffer();
@@ -71,14 +74,20 @@ public class ConnectionManger {
         while ((line = bufferedReader.readLine()) != null){
             buffer.append(line);
         }
+        inputStream.close();
+        urlConnection.disconnect();
         return buffer.toString();
     }
-   public static void buWriter (HttpURLConnection urlConnection,String data) throws IOException {
+   public static void buWriter (HttpURLConnection urlConnection,String searchQuery,String type) throws IOException {
         OutputStream outputStream = urlConnection.getOutputStream();
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-        bufferedWriter.write(data);
+        Uri.Builder builder = new Uri.Builder().appendQueryParameter(type, searchQuery);
+        String query = builder.build().getEncodedQuery();
+        bufferedWriter.write(query);
         bufferedWriter.flush();
         bufferedWriter.close();
+        outputStream.close();
+        urlConnection.disconnect();
     }
 
 

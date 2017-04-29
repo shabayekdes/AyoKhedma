@@ -21,13 +21,13 @@ ListView listv;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_black_24dp);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_black_24dp);
 
 
         listv = (ListView) findViewById(R.id.list_cat);
         Intent intent = getIntent();
         String catid =  intent.getStringExtra("id").toString();
-        new CustomeAsync(this).execute("http://oriflamebeauty.net/ayokhedma/category.php?catid=" + catid);
+        new CustomeAsync(this).execute("listCategory" , catid);
 
     }
     @Override

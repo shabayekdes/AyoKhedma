@@ -50,16 +50,16 @@ public class CustomeAdapter extends BaseAdapter {
         if (resource == R.layout.list_item) {
             View view_list = inflater.inflate(resource, null);
             TextView objectName = (TextView) view_list.findViewById(R.id.object_name);
-            ImageView objectImage = (ImageView) view_list.findViewById(R.id.object_image);
+           // ImageView objectImage = (ImageView) view_list.findViewById(R.id.object_image);
             TextView objectRegion = (TextView) view_list.findViewById(R.id.object_region);
             TextView objectAddress = (TextView) view_list.findViewById(R.id.object_address);
-            RatingBar objectRatingBar = (RatingBar) view_list.findViewById(R.id.object_rating);
+           // RatingBar objectRatingBar = (RatingBar) view_list.findViewById(R.id.object_rating);
 
             objectName.setText(models.get(i).getObjectName());
-            objectImage.setImageResource(models.get(i).getObjectImg());
+           // objectImage.setImageResource(models.get(i).getObjectImg());
             objectRegion.setText(models.get(i).getRegion());
             objectAddress.setText(models.get(i).getStreetName() + " " + models.get(i).getBeSides());
-            objectRatingBar.setRating(models.get(i).getRating());
+           // objectRatingBar.setRating(models.get(i).getRating());
             return view_list;
         }
         else if(resource == R.layout.grid_item){
