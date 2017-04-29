@@ -129,7 +129,11 @@ public class CustomeAsync extends AsyncTask<String,String,ArrayList<CategoryMode
                 model.setRegion(object.getString("reg_name"));
                 model.setStreetName(object.getString("str_name"));
                 model.setBeSides(object.getString("street_side"));
-              //  model.setObjectImg(object.getString("obj_imgurl"));
+                if (object.getString("obj_imgurl").toString().equals("")) {
+                    model.setObjectImg("https://www.oriflamebeauty.net/ayokhedma/images/gov.png");
+                }else {
+                    model.setObjectImg(object.getString("obj_imgurl"));
+                }
                 model.setCategoryName(object.getString("cat_name"));
                 model.setCategoryImg(R.drawable.img1+i);
                 categoryModels.add(model);

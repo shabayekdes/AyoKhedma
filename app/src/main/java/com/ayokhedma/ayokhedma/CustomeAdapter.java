@@ -10,6 +10,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ayokhedma.ayokhedma.models.CategoryModel;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -50,13 +52,18 @@ public class CustomeAdapter extends BaseAdapter {
         if (resource == R.layout.list_item) {
             View view_list = inflater.inflate(resource, null);
             TextView objectName = (TextView) view_list.findViewById(R.id.object_name);
-           // ImageView objectImage = (ImageView) view_list.findViewById(R.id.object_image);
+           ImageView objectImage = (ImageView) view_list.findViewById(R.id.object_image);
             TextView objectRegion = (TextView) view_list.findViewById(R.id.object_region);
             TextView objectAddress = (TextView) view_list.findViewById(R.id.object_address);
            // RatingBar objectRatingBar = (RatingBar) view_list.findViewById(R.id.object_rating);
 
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .build();
+            ImageLoader.getInstance().displayImage(models.get(i).getObjectImg(), objectImage, options);
+
             objectName.setText(models.get(i).getObjectName());
-           // objectImage.setImageResource(models.get(i).getObjectImg());
             objectRegion.setText(models.get(i).getRegion());
             objectAddress.setText(models.get(i).getStreetName() + " " + models.get(i).getBeSides());
            // objectRatingBar.setRating(models.get(i).getRating());

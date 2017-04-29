@@ -23,7 +23,7 @@ public class CategoryModel {
     private String streetName;
     private String beSides;
     private float rating;
-    private int objectImg; // String after
+    private String objectImg; // String after
 
     public CategoryModel() {
     }
@@ -140,11 +140,11 @@ public class CategoryModel {
         this.rating = rating;
     }
 
-    public int getObjectImg() {
+    public String getObjectImg() {
         return objectImg;
     }
 
-    public void setObjectImg(int objectImg) {
+    public void setObjectImg(String objectImg) {
         this.objectImg = objectImg;
     }
 }
